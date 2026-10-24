@@ -1,0 +1,3 @@
+# Overlay for screenshots: tools/ciq.sh demo <page> [device]
+base.sourcePath = source;demo
+base.excludeAnnotations = nodemo
