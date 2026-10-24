@@ -25,7 +25,7 @@ The disclaimer appears on first launch and is always available under **Options â
 
 ## Install
 
-Install it from the Garmin **Connect IQ Store**, either in the Connect IQ app on your phone or in Garmin Express. Search for **CPR Coach**. The app is still waiting for its first store review. The submission material is in [`store/LISTING.md`](store/LISTING.md).
+Install it from the Garmin **Connect IQ Store**: [CPR Coach (Beta)](https://apps.garmin.com/apps/4e356a5f-9855-4a5b-ba91-777629dffcbf), either in the Connect IQ app on your phone or in Garmin Express. Version 0.1.0 is waiting for its first store review, and the listing is limited to Switzerland and Liechtenstein, where the AED data applies. The submission material is in [`store/LISTING.md`](store/LISTING.md).
 
 ## Supported watches
 

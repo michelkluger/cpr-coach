@@ -1,6 +1,10 @@
 # Connect IQ Store submission: CPR Coach
 
-Upload page: https://apps.garmin.com/developer/upload. Sign in with your Garmin developer account.
+Store page: https://apps.garmin.com/apps/4e356a5f-9855-4a5b-ba91-777629dffcbf (0.1.0 submitted 2026-10-24, pending review)
+
+To release an updated version: open that page, choose **Upload New Version**, and bump `version` in `watch/manifest.xml` first. The store rejects emoji in the description, so keep it plain ASCII.
+
+Upload page for a new app: https://apps.garmin.com/developer/upload. Sign in with your Garmin developer account.
 
 Upload this file:
 
@@ -27,31 +31,31 @@ CPR training metronome with live rate feedback, plus an offline AED finder (CH/L
 ## Description
 
 ```
-⚠ BETA – STILL IN DEVELOPMENT. NOT A MEDICAL DEVICE.
+WARNING: BETA - STILL IN DEVELOPMENT. NOT A MEDICAL DEVICE.
 CPR Coach is intended for CPR training and general information only. It is not intended to diagnose, treat, cure or prevent any disease or condition, and it has not been reviewed or cleared by any regulatory agency. It does not replace a first-aid course, the instructions of an emergency dispatcher, or the voice prompts of a defibrillator (AED). In an emergency, always call 144 / 112 first.
 
 WHAT IT DOES
 
-▸ CPR METRONOME – vibration (and optional beep) at 110 compressions per minute, the middle of the 100–120/min range taught in resuscitation courses. Optional 30:2 mode with breath pauses.
+- CPR METRONOME - vibration (and optional beep) at 110 compressions per minute, the middle of the 100-120/min range taught in resuscitation courses. Optional 30:2 mode with breath pauses.
 
-▸ LIVE RATE FEEDBACK – the watch's accelerometer measures your actual compression rate and shows FASTER / GOOD / SLOWER, plus a warning when compressions stop. Training mode also shows an experimental depth estimate and records the raw sensor data as an activity for later review.
+- LIVE RATE FEEDBACK - the watch's accelerometer measures your actual compression rate and shows FASTER / GOOD / SLOWER, plus a warning when compressions stop. Training mode also shows an experimental depth estimate and records the raw sensor data as an activity for later review.
 
-▸ 2-MINUTE CYCLES – a ring counts down each 2-minute cycle and buzzes 10 s before it is time to swap rescuers. Pause/resume with START (e.g. while an AED analyses); log AED shocks from the menu.
+- 2-MINUTE CYCLES - a ring counts down each 2-minute cycle and buzzes 10 s before it is time to swap rescuers. Pause/resume with START (e.g. while an AED analyses); log AED shocks from the menu.
 
-▸ NEAREST AED, OFFLINE – about 17,600 defibrillator locations in Switzerland and Liechtenstein from OpenStreetMap are stored on the watch. No phone or connection needed: compass arrow, distance, where exactly it hangs and whether it is open 24/7. Data may be incomplete or outdated – always also ask the dispatcher.
+- NEAREST AED, OFFLINE - about 17,600 defibrillator locations in Switzerland and Liechtenstein from OpenStreetMap are stored on the watch. No phone or connection needed: compass arrow, distance, where exactly it hangs and whether it is open 24/7. Data may be incomplete or outdated - always also ask the dispatcher.
 
-▸ MY POSITION – your coordinates (WGS84 and Swiss LV95 grid) to read out over the phone.
+- MY POSITION - your coordinates (WGS84 and Swiss LV95 grid) to read out over the phone.
 
-▸ SUMMARY – start time, duration, shocks, compressions and average rate.
+- SUMMARY - start time, duration, shocks, compressions and average rate.
 
 CONTROLS
-START: begin CPR / pause–resume · UP/DOWN: switch pages · hold UP (MENU): options, training mode, about.
+START: begin CPR / pause-resume; UP/DOWN: switch pages; hold UP (MENU): options, training mode, about.
 
 PRIVACY
 No account, no network access, no data leaves the watch. Your location is only used on the watch to find nearby AEDs. Training sessions are saved as a regular activity in your own Garmin Connect account.
 
 Open source: https://github.com/michelkluger/cpr-coach
-AED data © OpenStreetMap contributors, ODbL.
+AED data (c) OpenStreetMap contributors, ODbL.
 ```
 
 ## What's new
