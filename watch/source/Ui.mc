@@ -1,6 +1,7 @@
 import Toybox.Graphics;
 import Toybox.Lang;
 import Toybox.Math;
+import Toybox.System;
 
 //! Drawing helpers shared by the views
 module Ui {
@@ -73,6 +74,38 @@ module Ui {
             dc.drawArc(cx, cy, r, Graphics.ARC_CLOCKWISE, 90, (end + 360) % 360);
         }
         dc.setPenWidth(1);
+    }
+
+    //! Button positions on every supported watch, in degrees counter-clockwise from 3 o'clock
+    const START_DEG = 30;
+    const BACK_DEG = -30;
+
+    //! Arc on the bezel next to a physical button
+    function buttonHint(dc as Graphics.Dc, degrees as Number, color as Graphics.ColorType) as Void {
+        var c = dc.getWidth() / 2;
+        var pen = dc.getWidth() / 40;
+        dc.setPenWidth(pen);
+        dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+        dc.drawArc(c, dc.getHeight() / 2, c - pen / 2 - 1, Graphics.ARC_COUNTER_CLOCKWISE, (degrees + 350) % 360, (degrees + 370) % 360);
+        dc.setPenWidth(1);
+    }
+
+    //! BACK button hint with a return arrow beside it, on watches that have the button
+    function backHint(dc as Graphics.Dc) as Void {
+        if ((System.getDeviceSettings().inputButtons & System.BUTTON_INPUT_ESC) == 0) {
+            return;
+        }
+        buttonHint(dc, BACK_DEG, Graphics.COLOR_WHITE);
+        var c = dc.getWidth() / 2;
+        var size = dc.getWidth() / 32;
+        var dist = c - dc.getWidth() / 40 - 2 * size;
+        var x = c + (dist * 0.866).toNumber();
+        var y = dc.getHeight() / 2 + dist / 2;
+        // Three-quarter circle ending in a head pointing down, like Garmin's own revert icon
+        dc.setPenWidth(size / 3 + 1);
+        dc.drawArc(x, y, size, Graphics.ARC_CLOCKWISE, 180, 270);
+        dc.setPenWidth(1);
+        dc.fillPolygon([[x - size * 3 / 2, y], [x - size / 2, y], [x - size, y + size * 2 / 3]] as Array<[Numeric, Numeric]>);
     }
 
     //! Arrow centred on (cx, cy) pointing at angle (radians clockwise from screen-up)

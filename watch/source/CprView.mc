@@ -55,7 +55,7 @@ class CprView extends WatchUi.View {
         var rate = s.detector.rate(now);
         if (rate == null) {
             var idle = s.detector.msSinceCompression(now);
-            Ui.text(dc, 0.45, Graphics.FONT_LARGE, Graphics.COLOR_RED, "PUSH");
+            Ui.text(dc, 0.45, Graphics.FONT_LARGE, Graphics.COLOR_WHITE, "PUSH");
             Ui.text(dc, 0.60, Graphics.FONT_SMALL, Graphics.COLOR_WHITE, "hard and fast");
             if (idle > 3000) {
                 Ui.text(dc, 0.72, Graphics.FONT_XTINY, Graphics.COLOR_ORANGE, "no compressions " + Geo.formatDuration(idle));

@@ -135,6 +135,7 @@ class CprSession {
 
     public function onBeat() as Void {
         var now = System.getTimer();
+        keepDisplayOn();
 
         if (now - cycleStartMs >= CYCLE_MS) {
             cycle++;
@@ -240,6 +241,17 @@ class CprSession {
         buzz(_beatVibe);
         if (Settings.sound() && Attention has :playTone) {
             Attention.playTone({:toneProfile => [new Attention.ToneProfile(1800, 40)]});
+        }
+    }
+
+    //! Rescuers must read the rate hands-free. Watches with burn-in protection
+    //! throw after about a minute held on; later beats retry once they allow it.
+    private function keepDisplayOn() as Void {
+        if (Attention has :backlight) {
+            try {
+                Attention.backlight(true);
+            } catch (e) {
+            }
         }
     }
 

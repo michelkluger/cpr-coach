@@ -14,7 +14,8 @@ class StartView extends WatchUi.View {
         Ui.text(dc, 0.17, Graphics.FONT_XTINY, Graphics.COLOR_LT_GRAY, "CPR COACH BETA");
         Ui.text(dc, 0.31, Graphics.FONT_SMALL, Graphics.COLOR_WHITE, "1  Call 144 / 112");
         Ui.text(dc, 0.44, Graphics.FONT_SMALL, Graphics.COLOR_WHITE, "2  Send for an AED");
-        Ui.text(dc, 0.60, Graphics.FONT_MEDIUM, Graphics.COLOR_RED, "START: CPR");
+        Ui.text(dc, 0.60, Graphics.FONT_MEDIUM, Graphics.COLOR_YELLOW, "START: CPR");
+        Ui.buttonHint(dc, Ui.START_DEG, Graphics.COLOR_YELLOW);
         Ui.text(dc, 0.75, Graphics.FONT_XTINY, Graphics.COLOR_LT_GRAY, "DOWN nearest AED");
         Ui.text(dc, 0.84, Graphics.FONT_XTINY, Graphics.COLOR_LT_GRAY, "UP my position");
     }

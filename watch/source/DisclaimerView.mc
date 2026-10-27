@@ -11,11 +11,12 @@ class DisclaimerView extends WatchUi.View {
 
     public function onUpdate(dc as Graphics.Dc) as Void {
         Ui.clear(dc);
+        Ui.buttonHint(dc, Ui.START_DEG, Graphics.COLOR_LT_GRAY);
         Ui.stack(dc, Graphics.FONT_XTINY, [
             ["BETA - IN DEVELOPMENT", Graphics.COLOR_ORANGE],
             ["Not a medical device. For training and information only.", Graphics.COLOR_WHITE],
             ["AED data may be incomplete.", Graphics.COLOR_LT_GRAY],
-            ["Emergency: call 144/112", Graphics.COLOR_RED],
+            ["Emergency: call 144/112", Graphics.COLOR_YELLOW],
             ["START: OK", Graphics.COLOR_LT_GRAY]
         ]);
     }

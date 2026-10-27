@@ -49,6 +49,7 @@ class AedView extends WatchUi.View {
 
     public function onUpdate(dc as Graphics.Dc) as Void {
         Ui.clear(dc);
+        Ui.backHint(dc);
         var app = $.getApp();
         var ll = app.latLon();
         if (ll == null) {
@@ -83,13 +84,13 @@ class AedView extends WatchUi.View {
         }
         Ui.text(dc, 0.46, Graphics.FONT_MEDIUM, Graphics.COLOR_WHITE, dist);
         Ui.wrapped(dc, 0.57, 0.8, 0.09, Graphics.FONT_XTINY, Graphics.COLOR_LT_GRAY, hit.title());
-        Ui.wrapped(dc, 0.69, 0.82, 0.16, Graphics.FONT_XTINY, Graphics.COLOR_WHITE, hit.where());
+        Ui.wrapped(dc, 0.69, 0.68, 0.18, Graphics.FONT_XTINY, Graphics.COLOR_WHITE, hit.where());
 
         var info = hit.isOpen24h() ? "24/7" : (hit.hours().length() > 0 ? hit.hours() : "hours unknown");
         if (hit.isRestricted()) {
             info = "restricted, " + info;
         }
-        Ui.wrapped(dc, 0.80, 0.7, 0.10, Graphics.FONT_XTINY, hit.isOpen24h() ? Graphics.COLOR_GREEN : Graphics.COLOR_ORANGE, info);
+        Ui.wrapped(dc, 0.81, 0.7, 0.10, Graphics.FONT_XTINY, hit.isOpen24h() ? Graphics.COLOR_GREEN : Graphics.COLOR_ORANGE, info);
 
         var footer = (_index + 1) + "/" + hits.size();
         var pos = app.position();
