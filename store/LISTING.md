@@ -1,6 +1,6 @@
 # Connect IQ Store submission: CPR Coach
 
-Store page: https://apps.garmin.com/apps/4e356a5f-9855-4a5b-ba91-777629dffcbf (0.1.0 live since 2026-10-26; 0.1.1 submitted 2026-10-27, pending review)
+Store page: https://apps.garmin.com/apps/4e356a5f-9855-4a5b-ba91-777629dffcbf (0.1.0 live since 2026-10-26; 0.1.2 submitted 2026-10-27, pending review)
 
 To release an updated version: open that page, choose **Upload New Version**, and bump `version` in `watch/manifest.xml` first. The store rejects emoji in the description, so keep it plain ASCII.
 
@@ -61,7 +61,7 @@ AED data (c) OpenStreetMap contributors, ODbL.
 ## What's new
 
 ```
-0.1.1 (beta): the screen stays on during CPR. The start screen marks the START button and the AED screens mark the BACK button. Easier-to-read colors (no red text). Not a medical device.
+0.1.2 (beta): browse the nearest AEDs with UP/DOWN (swipe on touch watches); the AED screens mark the UP, DOWN and BACK buttons. Also new since 0.1.0: the screen stays on during CPR, the start screen marks the START button, easier-to-read colors (no red text). Not a medical device.
 ```
 
 ## Category
