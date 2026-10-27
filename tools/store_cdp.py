@@ -24,6 +24,7 @@ Then: uv run --with playwright python -I tools/store_cdp.py <command> ...
 Notes from the first submission (2026-10-24):
   - the description must not contain emoji (warning signs, triangles): keep it ASCII
   - "Signature check failed" on a first upload is a known store bug (CIQQA-4716); submitting works
+  - a 504 from iqFiles/validate (gateway timeout on the 64 MB package) is transient; clicking again works
   - country checkboxes mean "available in"; all are ticked by default
 """
 

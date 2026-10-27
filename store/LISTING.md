@@ -1,6 +1,6 @@
 # Connect IQ Store submission: CPR Coach
 
-Store page: https://apps.garmin.com/apps/4e356a5f-9855-4a5b-ba91-777629dffcbf (0.1.0 submitted 2026-10-24, pending review)
+Store page: https://apps.garmin.com/apps/4e356a5f-9855-4a5b-ba91-777629dffcbf (0.1.0 live since 2026-10-26; 0.1.1 submitted 2026-10-27, pending review)
 
 To release an updated version: open that page, choose **Upload New Version**, and bump `version` in `watch/manifest.xml` first. The store rejects emoji in the description, so keep it plain ASCII.
 
@@ -61,7 +61,7 @@ AED data (c) OpenStreetMap contributors, ODbL.
 ## What's new
 
 ```
-0.1.0 (beta): first public test version. Metronome, rate feedback, 2-minute cycles, offline AED finder for CH/LI, position in WGS84/LV95, training mode. Not a medical device.
+0.1.1 (beta): the screen stays on during CPR. The start screen marks the START button and the AED screens mark the BACK button. Easier-to-read colors (no red text). Not a medical device.
 ```
 
 ## Category
@@ -82,7 +82,7 @@ https://github.com/michelkluger/cpr-coach#privacy
 
 ## Screenshots
 
-These are fēnix 7 (260 × 260) screenshots, in upload order. Regenerate them with `tools/ciq.sh demo <page> fenix7`.
+These are fēnix 7 (260 × 260) screenshots, in upload order. Regenerate them with `tools/ciq.sh demo <page> fenix7`, then crop the 260 × 260 display at offset (86, 198) from the window capture and mask it round.
 
 1. `store/screenshots/1-disclaimer.png`: beta / not a medical device notice (shown on first launch)
 2. `store/screenshots/2-start.png`
