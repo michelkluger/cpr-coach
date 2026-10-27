@@ -79,6 +79,9 @@ module Ui {
     //! Button positions on every supported watch, in degrees counter-clockwise from 3 o'clock
     const START_DEG = 30;
     const BACK_DEG = -30;
+    //! Only on 5-button watches; touch watches send swipes as the same page events
+    const UP_DEG = 180;
+    const DOWN_DEG = -150;
 
     //! Arc on the bezel next to a physical button
     function buttonHint(dc as Graphics.Dc, degrees as Number, color as Graphics.ColorType) as Void {
@@ -106,6 +109,25 @@ module Ui {
         dc.drawArc(x, y, size, Graphics.ARC_CLOCKWISE, 180, 270);
         dc.setPenWidth(1);
         dc.fillPolygon([[x - size * 3 / 2, y], [x - size / 2, y], [x - size, y + size * 2 / 3]] as Array<[Numeric, Numeric]>);
+    }
+
+    //! UP/DOWN marks with arrows on the left bezel, or swipe chevrons at the
+    //! top and bottom edge on watches without those buttons
+    function upDownHint(dc as Graphics.Dc) as Void {
+        var w = dc.getWidth();
+        var h = dc.getHeight();
+        var size = w / 28;
+        var both = System.BUTTON_INPUT_UP | System.BUTTON_INPUT_DOWN;
+        if ((System.getDeviceSettings().inputButtons & both) != both) {
+            arrow(dc, w / 2, size + 2, size, 0.0, Graphics.COLOR_LT_GRAY);
+            arrow(dc, w / 2, h - size - 2, size, Math.PI.toFloat(), Graphics.COLOR_LT_GRAY);
+            return;
+        }
+        buttonHint(dc, UP_DEG, Graphics.COLOR_WHITE);
+        buttonHint(dc, DOWN_DEG, Graphics.COLOR_WHITE);
+        var dist = w / 2 - w / 40 - size * 3 / 2;
+        arrow(dc, w / 2 - dist, h / 2, size, 0.0, Graphics.COLOR_WHITE);
+        arrow(dc, w / 2 - (dist * 0.866).toNumber(), h / 2 + dist / 2, size, Math.PI.toFloat(), Graphics.COLOR_WHITE);
     }
 
     //! Arrow centred on (cx, cy) pointing at angle (radians clockwise from screen-up)

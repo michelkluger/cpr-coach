@@ -6,7 +6,7 @@ import Toybox.Timer;
 import Toybox.WatchUi;
 
 //! Nearest AEDs from the bundled OSM data: compass arrow, distance and where
-//! exactly it hangs. START cycles through the closest five.
+//! exactly it hangs. UP/DOWN step through the closest five.
 class AedView extends WatchUi.View {
     private const TICK_MS = 250;
 
@@ -27,9 +27,9 @@ class AedView extends WatchUi.View {
         _timer.stop();
     }
 
-    public function nextHit() as Void {
+    public function step(delta as Number) as Void {
         var count = $.getApp().finder.hits().size();
-        _index = count > 0 ? (_index + 1) % count : 0;
+        _index = count > 0 ? (_index + delta + count) % count : 0;
         WatchUi.requestUpdate();
     }
 
@@ -70,6 +70,9 @@ class AedView extends WatchUi.View {
             _index = 0;
         }
         var hit = hits[_index];
+        if (hits.size() > 1) {
+            Ui.upDownHint(dc);
+        }
 
         var bearing = Geo.bearingRad(ll[0], ll[1], hit.lat, hit.lon);
         var heading = Sensor.getInfo().heading;
@@ -111,18 +114,14 @@ class AedDelegate extends WatchUi.BehaviorDelegate {
         _view = view;
     }
 
-    public function onSelect() as Boolean {
-        _view.nextHit();
-        return true;
-    }
-
+    //! DOWN (or swipe up) shows the next farther AED, UP the closer one
     public function onNextPage() as Boolean {
-        Pages.next(Pages.AED);
+        _view.step(1);
         return true;
     }
 
     public function onPreviousPage() as Boolean {
-        Pages.previous(Pages.AED);
+        _view.step(-1);
         return true;
     }
 

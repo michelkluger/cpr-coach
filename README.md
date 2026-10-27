@@ -45,10 +45,10 @@ The list comes from the installed device profiles via `tools/select_devices.py`.
 |---|---|---|---|---|
 | Start | begin CPR | my position / nearest AED | exit | training mode, 30:2, beep, about |
 | CPR | pause / resume | AED / position pages (CPR keeps running) | end CPR (asks first) | log shock, 30:2, beep, end |
-| AED | next of the 5 closest | other pages | back to CPR or start | |
+| AED | | previous / next of the 5 closest | back to CPR or start | |
 | Position | | other pages | back to CPR or start | |
 
-The CPR screen ignores taps on the touchscreen, so clothing brushing against it can't pause the metronome. On touch watches with two buttons, swipe up and down to switch pages.
+The CPR screen ignores taps on the touchscreen, so clothing brushing against it can't pause the metronome. On touch watches with two buttons, swipe up and down to switch pages, or to step through the AEDs.
 
 ## Privacy
 

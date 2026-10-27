@@ -49,7 +49,7 @@ WHAT IT DOES
 - SUMMARY - start time, duration, shocks, compressions and average rate.
 
 CONTROLS
-START: begin CPR / pause-resume; UP/DOWN: switch pages; hold UP (MENU): options, training mode, about.
+START: begin CPR / pause-resume; UP/DOWN: switch pages, or step through the nearest AEDs; hold UP (MENU): options, training mode, about.
 
 PRIVACY
 No account, no network access, no data leaves the watch. Your location is only used on the watch to find nearby AEDs. Training sessions are saved as a regular activity in your own Garmin Connect account.
