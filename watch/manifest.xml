@@ -120,6 +120,7 @@
          Sensor: accelerometer for compression rate, compass for the AED arrow.
          Fit + SensorLogging: training mode records raw accelerometer data. -->
     <iq:permissions>
+      <iq:uses-permission id="Communications"/>
       <iq:uses-permission id="Positioning"/>
       <iq:uses-permission id="Sensor"/>
       <iq:uses-permission id="SensorLogging"/>

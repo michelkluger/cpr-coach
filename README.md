@@ -4,7 +4,7 @@
 > **Beta, still in development. Not a medical device.**
 > CPR Coach is for CPR training and general information only. It is not intended to diagnose, treat, cure or prevent any disease or condition, and no regulatory agency has reviewed or cleared it. It does not replace a first-aid course, the emergency dispatcher, or the voice prompts of a defibrillator (AED). **In an emergency, always call 144 / 112 first.** The AED locations come from OpenStreetMap and may be incomplete or outdated.
 
-CPR Coach is a Garmin watch app that is a CPR training metronome with live compression feedback and an offline AED finder. It runs entirely on the watch, with no phone and no network.
+CPR Coach is a Garmin watch app that is a CPR training metronome with live compression feedback and an offline AED finder. It runs entirely on the watch; a paired phone is only used if you choose to open an AED in Google Maps.
 
 <p>
 <img src="store/screenshots/3-cpr.png" width="160" alt="CPR screen">
@@ -16,7 +16,7 @@ CPR Coach is a Garmin watch app that is a CPR training metronome with live compr
 
 - **Metronome:** vibrates (and beeps) at 110 compressions per minute. It tracks 2‑minute cycles with a warning 10 s before each rescuer swap, and has an optional 30:2 mode with pauses for breaths.
 - **Compression feedback:** the wrist accelerometer measures the real rate and shows FASTER / GOOD / SLOWER. When compressions stop it shows PUSH and the hands-off time.
-- **Nearest AED, offline:** all 17,628 defibrillators mapped in OpenStreetMap for Switzerland and Liechtenstein are bundled. The screen shows a compass arrow, the distance, where exactly the AED hangs, and whether it's open 24/7.
+- **Nearest AED, offline:** all 17,628 defibrillators mapped in OpenStreetMap for Switzerland and Liechtenstein are bundled. The screen shows a compass arrow, the distance, where exactly the AED hangs, and whether it's open 24/7. With a paired phone, START opens walking directions to it in Google Maps.
 - **My position:** WGS84 coordinates plus Swiss LV95 coordinates, to read out to 144 or Rega.
 - **Summary:** start time, duration, shocks, compressions, average rate and the share of time with hands on the chest.
 - **Training mode (manikin):** records raw accelerometer data as a FIT activity and shows an experimental depth estimate.
@@ -45,14 +45,14 @@ The list comes from the installed device profiles via `tools/select_devices.py`.
 |---|---|---|---|---|
 | Start | begin CPR | my position / nearest AED | exit | training mode, 30:2, beep, about |
 | CPR | pause / resume | AED / position pages (CPR keeps running) | end CPR (asks first) | log shock, 30:2, beep, end |
-| AED | | previous / next of the 5 closest | back to CPR or start | |
+| AED | open it in Google Maps on the paired phone | previous / next of the 5 closest | back to CPR or start | |
 | Position | | other pages | back to CPR or start | |
 
 The CPR screen ignores taps on the touchscreen, so clothing brushing against it can't pause the metronome. On touch watches with two buttons, swipe up and down to switch pages, or to step through the AEDs.
 
 ## Privacy
 
-- There is no account and no network access, and no data leaves the watch.
+- There is no account and no network access. Nothing leaves the watch unless you press START on an AED: then only that AED's coordinates go to your paired phone, to open Google Maps.
 - Your location is only used on the watch, to find nearby AEDs and show your coordinates.
 - Training sessions are saved as a regular activity in your own Garmin Connect account.
 

@@ -1,17 +1,23 @@
+import Toybox.Communications;
 import Toybox.Graphics;
 import Toybox.Lang;
 import Toybox.Position;
 import Toybox.Sensor;
+import Toybox.System;
 import Toybox.Timer;
 import Toybox.WatchUi;
 
 //! Nearest AEDs from the bundled OSM data: compass arrow, distance and where
-//! exactly it hangs. UP/DOWN step through the closest five.
+//! exactly it hangs. UP/DOWN step through the closest five; START opens the
+//! shown one in Google Maps on the paired phone.
 class AedView extends WatchUi.View {
     private const TICK_MS = 250;
 
     private var _timer as Timer.Timer;
     private var _index as Number = 0;
+    //! Footer message after START, shown until _noticeUntil
+    private var _notice as String?;
+    private var _noticeUntil as Number = 0;
 
     public function initialize() {
         View.initialize();
@@ -25,6 +31,27 @@ class AedView extends WatchUi.View {
 
     public function onHide() as Void {
         _timer.stop();
+    }
+
+    //! Walking directions to the shown AED, opened on the paired phone once accepted there
+    public function openInMaps() as Void {
+        var hits = $.getApp().finder.hits();
+        if (hits.size() == 0) {
+            return;
+        }
+        var hit = hits[_index < hits.size() ? _index : 0];
+        if (System.getDeviceSettings().phoneConnected) {
+            Communications.openWebPage("https://www.google.com/maps/dir/", {
+                "api" => "1",
+                "destination" => hit.lat.format("%.6f") + "," + hit.lon.format("%.6f"),
+                "travelmode" => "walking"
+            }, null);
+            _notice = "Open it on your phone";
+        } else {
+            _notice = "No phone connected";
+        }
+        _noticeUntil = System.getTimer() + 4000;
+        WatchUi.requestUpdate();
     }
 
     public function step(delta as Number) as Void {
@@ -73,6 +100,11 @@ class AedView extends WatchUi.View {
         if (hits.size() > 1) {
             Ui.upDownHint(dc);
         }
+        if (System.getDeviceSettings().phoneConnected) {
+            Ui.buttonHint(dc, Ui.START_DEG, Graphics.COLOR_WHITE);
+            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            dc.drawText((dc.getWidth() * 0.81).toNumber(), (dc.getHeight() * 0.32).toNumber(), Graphics.FONT_XTINY, "MAP", Ui.CENTER);
+        }
 
         var bearing = Geo.bearingRad(ll[0], ll[1], hit.lat, hit.lon);
         var heading = Sensor.getInfo().heading;
@@ -102,7 +134,12 @@ class AedView extends WatchUi.View {
         } else if (heading == null) {
             footer += " north up";
         }
-        Ui.text(dc, 0.89, Graphics.FONT_XTINY, Graphics.COLOR_LT_GRAY, footer);
+        var notice = _notice;
+        if (notice != null && System.getTimer() < _noticeUntil) {
+            Ui.text(dc, 0.89, Graphics.FONT_XTINY, Graphics.COLOR_WHITE, notice);
+        } else {
+            Ui.text(dc, 0.89, Graphics.FONT_XTINY, Graphics.COLOR_LT_GRAY, footer);
+        }
     }
 }
 
@@ -112,6 +149,11 @@ class AedDelegate extends WatchUi.BehaviorDelegate {
     public function initialize(view as AedView) {
         BehaviorDelegate.initialize();
         _view = view;
+    }
+
+    public function onSelect() as Boolean {
+        _view.openInMaps();
+        return true;
     }
 
     //! DOWN (or swipe up) shows the next farther AED, UP the closer one

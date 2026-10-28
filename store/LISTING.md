@@ -42,17 +42,17 @@ WHAT IT DOES
 
 - 2-MINUTE CYCLES - a ring counts down each 2-minute cycle and buzzes 10 s before it is time to swap rescuers. Pause/resume with START (e.g. while an AED analyses); log AED shocks from the menu.
 
-- NEAREST AED, OFFLINE - about 17,600 defibrillator locations in Switzerland and Liechtenstein from OpenStreetMap are stored on the watch. No phone or connection needed: compass arrow, distance, where exactly it hangs and whether it is open 24/7. Data may be incomplete or outdated - always also ask the dispatcher.
+- NEAREST AED, OFFLINE - about 17,600 defibrillator locations in Switzerland and Liechtenstein from OpenStreetMap are stored on the watch. No phone or connection needed: compass arrow, distance, where exactly it hangs and whether it is open 24/7. With a paired phone, START opens walking directions in Google Maps. Data may be incomplete or outdated - always also ask the dispatcher.
 
 - MY POSITION - your coordinates (WGS84 and Swiss LV95 grid) to read out over the phone.
 
 - SUMMARY - start time, duration, shocks, compressions and average rate.
 
 CONTROLS
-START: begin CPR / pause-resume; UP/DOWN: switch pages, or step through the nearest AEDs; hold UP (MENU): options, training mode, about.
+START: begin CPR / pause-resume; UP/DOWN: switch pages, or step through the nearest AEDs; START on an AED: open it in Google Maps on the phone; hold UP (MENU): options, training mode, about.
 
 PRIVACY
-No account, no network access, no data leaves the watch. Your location is only used on the watch to find nearby AEDs. Training sessions are saved as a regular activity in your own Garmin Connect account.
+No account, no network access. Nothing leaves the watch unless you press START on an AED: then only that AED's coordinates are sent to your paired phone to open Google Maps. Your location is only used on the watch to find nearby AEDs. Training sessions are saved as a regular activity in your own Garmin Connect account.
 
 Open source: https://github.com/michelkluger/cpr-coach
 AED data (c) OpenStreetMap contributors, ODbL.
@@ -72,6 +72,7 @@ Health & Fitness. If the reviewers object to the health framing, use Tools.
 
 | Permission | Why |
 |---|---|
+| Communications | Only when the user presses START on an AED: opens walking directions to it in Google Maps on the paired phone |
 | Positioning | Find the nearest AED on the watch; show coordinates for the emergency call |
 | Sensor | Accelerometer to measure compression rate; compass for the AED arrow |
 | Fit / SensorLogging | Training mode only: saves the session with raw accelerometer data as an activity |
