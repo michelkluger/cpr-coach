@@ -42,7 +42,7 @@ WHAT IT DOES
 
 - 2-MINUTE CYCLES - a ring counts down each 2-minute cycle and buzzes 10 s before it is time to swap rescuers. Pause/resume with START (e.g. while an AED analyses); log AED shocks from the menu.
 
-- NEAREST AED, OFFLINE - about 17,600 defibrillator locations in Switzerland and Liechtenstein from OpenStreetMap are stored on the watch. No phone or connection needed: compass arrow, distance, where exactly it hangs and whether it is open 24/7. With a paired phone, START opens walking directions in Google Maps. Data may be incomplete or outdated - always also ask the dispatcher.
+- NEAREST AED, OFFLINE - about 17,600 defibrillator locations in Switzerland and Liechtenstein from OpenStreetMap are stored on the watch. No phone or connection needed: compass arrow, distance, where exactly it hangs and whether it is open now. The nearest accessible AEDs come first; indoor ones that are closed right now follow after them. With a paired phone, START opens walking directions in Google Maps. Data may be incomplete or outdated - always also ask the dispatcher.
 
 - MY POSITION - your coordinates (WGS84 and Swiss LV95 grid) to read out over the phone.
 

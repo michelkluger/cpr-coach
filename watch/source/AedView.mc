@@ -8,8 +8,9 @@ import Toybox.Timer;
 import Toybox.WatchUi;
 
 //! Nearest AEDs from the bundled OSM data: compass arrow, distance and where
-//! exactly it hangs. UP/DOWN step through the closest five; START opens the
-//! shown one in Google Maps on the paired phone.
+//! exactly it hangs. UP/DOWN step through the closest five accessible ones, then
+//! nearer ones that are closed or restricted; START opens the shown one in
+//! Google Maps on the paired phone.
 class AedView extends WatchUi.View {
     private const TICK_MS = 250;
 
@@ -122,10 +123,13 @@ class AedView extends WatchUi.View {
         Ui.wrapped(dc, 0.69, 0.68, 0.18, Graphics.FONT_XTINY, Graphics.COLOR_WHITE, hit.where());
 
         var info = hit.isOpen24h() ? "24/7" : (hit.hours().length() > 0 ? hit.hours() : "hours unknown");
+        if (hit.isIndoor() && hit.openNow == false) {
+            info = "closed now, " + info;
+        }
         if (hit.isRestricted()) {
             info = "restricted, " + info;
         }
-        Ui.wrapped(dc, 0.81, 0.7, 0.10, Graphics.FONT_XTINY, hit.isOpen24h() ? Graphics.COLOR_GREEN : Graphics.COLOR_ORANGE, info);
+        Ui.wrapped(dc, 0.81, 0.7, 0.10, Graphics.FONT_XTINY, hit.openNow == true ? Graphics.COLOR_GREEN : Graphics.COLOR_ORANGE, info);
 
         var footer = (_index + 1) + "/" + hits.size();
         var pos = app.position();

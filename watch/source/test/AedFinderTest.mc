@@ -27,17 +27,60 @@ function findsKnownAedAtItsLocation(logger as Test.Logger) as Boolean {
     return true;
 }
 
+(:debug)
+function runSearchAt(lat as Double, lon as Double, weekday as Number, minute as Number) as AedFinder {
+    var finder = new AedFinder();
+    finder.searchAt(lat, lon, weekday, minute);
+    for (var i = 0; i < 500; i++) {
+        if (finder.step()) {
+            break;
+        }
+    }
+    return finder;
+}
+
 (:test)
 function nearestFiveInCitySorted(logger as Test.Logger) as Boolean {
-    var finder = runSearch(47.37818d, 8.54019d);
+    // Tuesday 10:00, offices open
+    var finder = runSearchAt(47.37818d, 8.54019d, 1, 600);
     var hits = finder.hits();
     Test.assertMessage(finder.isDone(), "search not finished");
-    Test.assertEqual(hits.size(), finder.MAX_HITS);
-    for (var i = 1; i < hits.size(); i++) {
+    Test.assertMessage(hits.size() >= finder.MAX_HITS, "fewer than 5 hits");
+    for (var i = 1; i < finder.MAX_HITS; i++) {
         Test.assertMessage(hits[i].distM >= hits[i - 1].distM, "hits not sorted");
     }
-    logger.debug("nearest = " + hits[0].distM + " m, 5th = " + hits[hits.size() - 1].distM + " m");
+    logger.debug("nearest = " + hits[0].distM + " m, 5th = " + hits[finder.MAX_HITS - 1].distM + " m");
     Test.assertMessage(hits[0].distM < 300, "nothing near Zurich HB");
+    return true;
+}
+
+(:test)
+function closedAedsFollowTheAccessibleOnes(logger as Test.Logger) as Boolean {
+    // Standing at an indoor AED of the Amt für Städtebau, Zurich, open Mo-Fr 08:00-17:00
+    var lat = 47.37417d;
+    var lon = 8.54016d;
+    var weekday = runSearchAt(lat, lon, 1, 600).hits()[0];
+    Test.assertMessage(weekday.distM < 2 && weekday.title().find("Städtebau") != null, "office AED not first on Tuesday 10:00");
+    Test.assertEqual(weekday.openNow, true);
+
+    // Sunday 03:00: it moves behind the five accessible ones
+    var finder = runSearchAt(lat, lon, 6, 180);
+    var hits = finder.hits();
+    var open = finder.MAX_HITS;
+    Test.assertMessage(finder.isDone(), "search not finished");
+    Test.assertMessage(hits.size() > open, "no closed AED listed");
+    Test.assertMessage(hits[open].distM < 2 && hits[open].openNow == false, "closed office AED not first after the accessible ones");
+    Test.assertMessage(hits.size() <= open + finder.MAX_DEMOTED, "too many hits");
+    for (var i = 0; i < hits.size(); i++) {
+        logger.debug(i + ": " + hits[i].distM.format("%.0f") + " m " + hits[i].title() + " [" + hits[i].hours() + "]");
+        Test.assertMessage(hits[i].isDemoted() == (i >= open), "accessible and demoted AEDs mixed up");
+        if (i >= open) {
+            Test.assertMessage(hits[i].distM < hits[open - 1].distM, "demoted AED farther than the 5th accessible");
+        }
+        if (i > 0 && i != open) {
+            Test.assertMessage(hits[i].distM >= hits[i - 1].distM, "hits not sorted");
+        }
+    }
     return true;
 }
 

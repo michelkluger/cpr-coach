@@ -65,7 +65,8 @@ MAX_RESOURCES = 250
 
 MAX_TITLE = 32
 MAX_WHERE = 64
-MAX_HOURS = 40
+# Long enough for the watch to read 96% of the opening hours (Hours.mc)
+MAX_HOURS = 80
 
 
 def fetch(refresh: bool) -> dict:

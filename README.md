@@ -16,7 +16,7 @@ CPR Coach is a Garmin watch app that is a CPR training metronome with live compr
 
 - **Metronome:** vibrates (and beeps) at 110 compressions per minute. It tracks 2‑minute cycles with a warning 10 s before each rescuer swap, and has an optional 30:2 mode with pauses for breaths.
 - **Compression feedback:** the wrist accelerometer measures the real rate and shows FASTER / GOOD / SLOWER. When compressions stop it shows PUSH and the hands-off time.
-- **Nearest AED, offline:** all 17,628 defibrillators mapped in OpenStreetMap for Switzerland and Liechtenstein are bundled. The screen shows a compass arrow, the distance, where exactly the AED hangs, and whether it's open 24/7. With a paired phone, START opens walking directions to it in Google Maps.
+- **Nearest AED, offline:** all 17,628 defibrillators mapped in OpenStreetMap for Switzerland and Liechtenstein are bundled. The screen shows a compass arrow, the distance, where exactly the AED hangs, and whether it's open now. The five nearest accessible AEDs come first; ones that are indoors and closed right now (by their opening hours), or not public, follow after them. With a paired phone, START opens walking directions to it in Google Maps.
 - **My position:** WGS84 coordinates plus Swiss LV95 coordinates, to read out to 144 or Rega.
 - **Summary:** start time, duration, shocks, compressions, average rate and the share of time with hands on the chest.
 - **Training mode (manikin):** records raw accelerometer data as a FIT activity and shows an experimental depth estimate.
@@ -73,7 +73,8 @@ Depth comes from modelling each compression as a sinusoid (peak-to-peak accelera
 - Each AED is packed into one 32-bit integer per 0.1° tile, with a "title|where|hours" label.
 - The tiles are bin-packed into 236 JSON resources of under 6.5 KB each, about 1.2 MB in total. Small neighbouring tiles share a resource and dense tiles span several. That keeps the app within the 254-resource limit of API 3.x watches.
 - `AedFinder` searches rings of tiles outward from your position. It stops once no unscanned tile could hold a closer AED.
-- The search runs in small steps so the watchdog never kills it, even in central Zürich (699 AEDs in a single tile).
+- The search runs in small steps so the watchdog never kills it, even in central Zürich (699 AEDs in a single tile) at night, when many office AEDs are closed.
+- `Hours.mc` reads the common forms of `opening_hours` (96% of the values in the data, e.g. `Mo-Fr 08:00-12:00,13:30-17:00; Sa 09:00-12:00`). Anything it can't read counts as unknown and is never moved down the list. Outdoor AEDs stay accessible whatever the hours say.
 
 ## Develop
 
@@ -96,16 +97,17 @@ uv run python -I tools/select_devices.py   # recompute the supported-watch list
 
 The demo build (`watch/demo/`, enabled by `demo.jungle`) opens a single screen with realistic state: a GPS fix at Zürich HB, a CPR session already 3 minutes in, and synthetic compressions. That way screenshots need no clicking in the simulator. The available pages are `start`, `disclaimer`, `cpr`, `slow`, `training`, `aed`, `position` and `summary`. Normal builds don't include any of this code.
 
-### Status (2026-10-24)
+### Status (2026-10-28)
 
 - **Builds:** all 157 device variants build with no errors.
-- **Memory:** the peak is about 93 KB, on the AED screen.
-- **Unit tests:** 17/17 pass in the simulator on both a new-firmware watch (fēnix 7, API 5.2) and an old one (vívoactive 4S, API 3.3). They cover:
+- **Memory:** the peak is about 113 KB, on the AED screen in central Zürich.
+- **Unit tests:** 23/23 pass in the simulator on both a new-firmware watch (fēnix 7, API 5.2) and an old one (vívoactive 4S, API 3.3). They cover:
   - Compression rate at 80, 110 and 140/min, including with noise and a tilted watch.
   - Pauses and resumption.
   - Depth estimate on a synthetic signal: 5 cm reads 4.98 cm.
   - LV95 conversion against swisstopo's worked example.
-  - AED search against the real data.
+  - AED search against the real data, including closed AEDs moving behind the accessible ones.
+  - Opening hours: office hours, lunch breaks, later rules, hours past midnight, and formats it can't read.
 - **Simulator:** the screens have been checked at 218, 240, 260, 280 and 454 px.
 - **Not yet tested on a real watch.** Still to confirm: accelerometer behaviour during real compressions, whether the system tolerates a vibration on every beat, compass heading, and GPS time to first fix.
 
@@ -113,9 +115,8 @@ The demo build (`watch/demo/`, enabled by `demo.jungle`) opens a single screen w
 
 1. **Validate on a real watch and a manikin.** Record training sessions. Ideally use a feedback manikin (for example a Laerdal QCPR) as ground truth. Then fit the depth model offline from the FIT accelerometer data.
 2. **Translations:** German, French and Italian.
-3. **AED opening hours:** parse `opening_hours` to show "open now".
-4. **AED data quality:** prefer recently checked entries (`check_date`), and add a way to report missing or wrong AEDs.
-5. **Expert review:** ask the Swiss Resuscitation Council or first-responder organisations about wording and the 30:2 default.
+3. **AED data quality:** prefer recently checked entries (`check_date`), and add a way to report missing or wrong AEDs.
+4. **Expert review:** ask the Swiss Resuscitation Council or first-responder organisations about wording and the 30:2 default.
 
 ## License
 
