@@ -130,6 +130,45 @@ module Ui {
         arrow(dc, w / 2 - (dist * 0.866).toNumber(), h / 2 + dist / 2, size, Math.PI.toFloat(), Graphics.COLOR_WHITE);
     }
 
+    //! Start screen: a position pin by UP and the AED sign by DOWN, or at the top
+    //! and bottom edge on watches without those buttons, which swipe instead
+    function pageIcons(dc as Graphics.Dc) as Void {
+        var w = dc.getWidth();
+        var h = dc.getHeight();
+        var r = w / 40;
+        var both = System.BUTTON_INPUT_UP | System.BUTTON_INPUT_DOWN;
+        if ((System.getDeviceSettings().inputButtons & both) != both) {
+            pin(dc, w / 2, 2 * r + 2, r);
+            aedSign(dc, w / 2, h - 2 * r - 2, r);
+            return;
+        }
+        buttonHint(dc, UP_DEG, Graphics.COLOR_LT_GRAY);
+        buttonHint(dc, DOWN_DEG, Graphics.COLOR_LT_GRAY);
+        var dist = w / 2 - w / 40 - 2 * r - 4;
+        pin(dc, w / 2 - dist, h / 2, r);
+        aedSign(dc, w / 2 - (dist * 0.866).toNumber(), h / 2 + dist / 2, r);
+    }
+
+    //! Location pin, about 2r wide and 3r tall, centred on (cx, cy)
+    function pin(dc as Graphics.Dc, cx as Number, cy as Number, r as Number) as Void {
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        dc.fillCircle(cx, cy - r / 2, r);
+        dc.fillPolygon([[cx - r * 0.85, cy - r / 4], [cx + r * 0.85, cy - r / 4], [cx, cy + r * 3 / 2]] as Array<[Numeric, Numeric]>);
+        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+        dc.fillCircle(cx, cy - r / 2, r * 2 / 5);
+    }
+
+    //! Green heart with a lightning bolt, like the AED signs, about 4r wide, centred on (cx, cy)
+    function aedSign(dc as Graphics.Dc, cx as Number, cy as Number, r as Number) as Void {
+        dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
+        dc.fillCircle(cx - r, cy - r / 2, r);
+        dc.fillCircle(cx + r, cy - r / 2, r);
+        dc.fillPolygon([[cx - r * 1.95, cy - r * 0.2], [cx + r * 1.95, cy - r * 0.2], [cx, cy + r * 1.6]] as Array<[Numeric, Numeric]>);
+        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+        dc.fillPolygon([[cx + r * 0.35, cy - r * 1.1], [cx - r * 0.5, cy + r * 0.15], [cx - r * 0.05, cy + r * 0.15],
+            [cx - r * 0.35, cy + r * 1.15], [cx + r * 0.5, cy - r * 0.1], [cx + r * 0.05, cy - r * 0.1]] as Array<[Numeric, Numeric]>);
+    }
+
     //! Arrow centred on (cx, cy) pointing at angle (radians clockwise from screen-up)
     function arrow(dc as Graphics.Dc, cx as Number, cy as Number, size as Number, angle as Float, color as Graphics.ColorType) as Void {
         var shape = [[0.0, -1.0], [0.6, 0.6], [0.0, 0.25], [-0.6, 0.6]];
