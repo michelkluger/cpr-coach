@@ -46,15 +46,17 @@ class CprCoachApp extends Application.AppBase {
         WatchUi.requestUpdate();
     }
 
-    //! Latest fix, or the last known position until the first fix arrives
+    //! Latest fix, or the last known position until the first fix arrives (check accuracy)
     public function position() as Position.Info? {
         return _position;
     }
 
-    //! Latitude and longitude in degrees, or null without any position
+    //! Latitude and longitude in degrees, or null until a real fix (poor is fine).
+    //! The last known position can be from another place (e.g. the end of a run)
+    //! and would show the wrong AEDs and coordinates.
     public function latLon() as [Double, Double]? {
         var info = _position;
-        if (info == null || info.position == null || info.accuracy == Position.QUALITY_NOT_AVAILABLE) {
+        if (info == null || info.position == null || info.accuracy < Position.QUALITY_POOR) {
             return null;
         }
         var deg = (info.position as Position.Location).toDegrees();
