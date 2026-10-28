@@ -1,6 +1,6 @@
 # Connect IQ Store submission: CPR Coach
 
-Store page: https://apps.garmin.com/apps/4e356a5f-9855-4a5b-ba91-777629dffcbf (0.1.3 live since 2026-10-28; 0.1.4 submitted 2026-10-28, pending review)
+Store page: https://apps.garmin.com/apps/4e356a5f-9855-4a5b-ba91-777629dffcbf (0.1.4 live since 2026-10-28; 0.1.5 submitted 2026-10-28, pending review)
 
 To release an updated version: open that page, choose **Upload New Version**, and bump `version` in `watch/manifest.xml` first. The store rejects emoji in the description, so keep it plain ASCII.
 
@@ -61,7 +61,7 @@ AED data (c) OpenStreetMap contributors, ODbL.
 ## What's new
 
 ```
-0.1.4 (beta): the AED and position pages wait for a real GPS fix (a weak one is enough) instead of using the watch's last known position, which could be from somewhere else. With a paired phone, START on the AED screen opens walking directions to that AED in Google Maps. Not a medical device.
+0.1.5 (beta): the nearest AEDs that are accessible come first; indoor AEDs that are closed right now (by their opening hours) or not public follow after them. The start screen marks UP (my position) and DOWN (nearest AED) with icons. Faster GPS fix on watches that support all satellite systems. Not a medical device.
 ```
 
 ## Category
