@@ -22,7 +22,29 @@ class CprCoachApp extends Application.AppBase {
     //! GPS starts with the app so a fix is ready by the time someone needs the AED page
     public function onStart(state as Dictionary?) as Void {
         _position = Position.getInfo();
-        Position.enableLocationEvents(Position.LOCATION_CONTINUOUS, method(:onPosition));
+        try {
+            Position.enableLocationEvents({
+                :acquisitionType => Position.LOCATION_CONTINUOUS,
+                :configuration => allSatellites()
+            }, method(:onPosition));
+        } catch (e) {
+            Position.enableLocationEvents(Position.LOCATION_CONTINUOUS, method(:onPosition));
+        }
+    }
+
+    //! Every satellite system the watch has, for the fastest fix; battery doesn't matter here.
+    //! Throws InvalidValueException (caught above) on watches without configuration support.
+    private function allSatellites() as Position.Configuration {
+        if (!(Position has :hasConfigurationSupport)) {
+            throw new Lang.InvalidValueException("no configuration support");
+        }
+        if (Position.hasConfigurationSupport(Position.CONFIGURATION_GPS_GLONASS_GALILEO_BEIDOU_L1_L5)) {
+            return Position.CONFIGURATION_GPS_GLONASS_GALILEO_BEIDOU_L1_L5;
+        }
+        if (Position.hasConfigurationSupport(Position.CONFIGURATION_GPS_GLONASS_GALILEO_BEIDOU_L1)) {
+            return Position.CONFIGURATION_GPS_GLONASS_GALILEO_BEIDOU_L1;
+        }
+        throw new Lang.InvalidValueException("no multi-GNSS configuration");
     }
 
     public function onStop(state as Dictionary?) as Void {
