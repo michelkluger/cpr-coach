@@ -118,6 +118,14 @@ The demo build (`watch/demo/`, enabled by `demo.jungle`) opens a single screen w
 3. **AED data quality:** prefer recently checked entries (`check_date`), and add a way to report missing or wrong AEDs.
 4. **Expert review:** ask the Swiss Resuscitation Council or first-responder organisations about wording and the 30:2 default.
 
+## Sponsors
+
+CPR Coach is free and has no ads. Sponsors pay for test watches, validation and further development.
+
+<a href="https://www.nothelferambahnhof.ch/"><img src="store/sponsors/nothelfer-am-bahnhof.png" width="64" alt="Nothelfer am Bahnhof logo"></a>
+
+**[Nothelfer am Bahnhof](https://www.nothelferambahnhof.ch/)** (Nothelferkurszentrum Schweiz AG): first-aid and BLS-AED courses.
+
 ## License
 
 The code is under the MIT license (see [LICENSE](LICENSE)). The AED locations are © OpenStreetMap contributors, under the [ODbL](https://opendatacommons.org/licenses/odbl/).

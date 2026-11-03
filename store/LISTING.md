@@ -54,9 +54,14 @@ START: begin CPR / pause-resume; UP/DOWN: switch pages, or step through the near
 PRIVACY
 No account, no network access. Nothing leaves the watch unless you press START on an AED: then only that AED's coordinates are sent to your paired phone to open Google Maps. Your location is only used on the watch to find nearby AEDs. Training sessions are saved as a regular activity in your own Garmin Connect account.
 
+SPONSOR
+Supported by Nothelfer am Bahnhof - first-aid and BLS-AED courses: https://www.nothelferambahnhof.ch/
+
 Open source: https://github.com/michelkluger/cpr-coach
 AED data (c) OpenStreetMap contributors, ODbL.
 ```
+
+The store description is plain text, so the sponsor logo itself only appears on the project page (`store/sponsors/`).
 
 ## What's new
 
