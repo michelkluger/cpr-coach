@@ -6,6 +6,8 @@
 
 CPR Coach is a Garmin watch app that is a CPR training metronome with live compression feedback and an offline AED finder. It runs entirely on the watch; a paired phone is only used if you choose to open an AED in Google Maps.
 
+**Sponsors:** <a href="https://www.nothelferambahnhof.ch/"><img src="store/sponsors/nothelfer-am-bahnhof.png" width="32" align="middle" alt="Nothelfer am Bahnhof logo"></a> **[Nothelfer am Bahnhof](https://www.nothelferambahnhof.ch/)** (Nothelferkurszentrum Schweiz AG), first-aid and BLS-AED courses. The app is free and has no ads; sponsors pay for test watches, validation and further development.
+
 <p>
 <img src="store/screenshots/3-cpr.png" width="160" alt="CPR screen">
 <img src="store/screenshots/4-slow.png" width="160" alt="Rate feedback">
@@ -117,14 +119,6 @@ The demo build (`watch/demo/`, enabled by `demo.jungle`) opens a single screen w
 2. **Translations:** German, French and Italian.
 3. **AED data quality:** prefer recently checked entries (`check_date`), and add a way to report missing or wrong AEDs.
 4. **Expert review:** ask the Swiss Resuscitation Council or first-responder organisations about wording and the 30:2 default.
-
-## Sponsors
-
-CPR Coach is free and has no ads. Sponsors pay for test watches, validation and further development.
-
-<a href="https://www.nothelferambahnhof.ch/"><img src="store/sponsors/nothelfer-am-bahnhof.png" width="64" alt="Nothelfer am Bahnhof logo"></a>
-
-**[Nothelfer am Bahnhof](https://www.nothelferambahnhof.ch/)** (Nothelferkurszentrum Schweiz AG): first-aid and BLS-AED courses.
 
 ## License
 
